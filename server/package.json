@@ -1,0 +1,27 @@
+{
+  "name": "moyeora",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smilu97/moyeora.git"
+  },
+  "keywords": [
+    "moyeora"
+  ],
+  "author": "HYUSmilu97ClaryCha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/smilu97/moyeora/issues"
+  },
+  "homepage": "https://github.com/smilu97/moyeora#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  }
+}
