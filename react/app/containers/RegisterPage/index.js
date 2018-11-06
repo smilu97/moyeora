@@ -12,6 +12,7 @@ import { compose } from 'redux';
 import styled from 'styled-components';
 
 import Header from 'components/Header';
+import BillboardChart from 'react-billboardjs';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -27,6 +28,15 @@ const RegisterAlert = styled(Alert)`
   margin: 0 auto;
   max-width: 1000px;
 `;
+
+const CHART_DATA = {
+  columns: [
+    ['data1', 30, 20, 50, 40, 60, 50],
+    ['data2', 200, 130, 90, 240, 130, 220],
+    ['data3', 300, 200, 160, 400, 250, 250],
+  ],
+  type: 'line',
+};
 
 /* eslint-disable react/prefer-stateless-function */
 export class RegisterPage extends React.Component {
@@ -64,6 +74,7 @@ export class RegisterPage extends React.Component {
           onChangeGroup={e => this.setState({ group: e.target.value })}
           onClickRegister={() => this.handleClickRegister()}
         />
+        <BillboardChart data={CHART_DATA} />
       </div>
     );
   }
