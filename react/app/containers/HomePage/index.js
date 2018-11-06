@@ -15,9 +15,6 @@ import styled from 'styled-components';
 import {
   Jumbotron,
   Button,
-  Container,
-  Row,
-  Col,
   ListGroup,
   ListGroupItem,
   Pagination,
@@ -25,21 +22,7 @@ import {
   PaginationLink,
 } from 'reactstrap';
 
-const HeaderContainer = styled.div`
-  width: 100%;
-  padding: 30px 0;
-`;
-
-const TitleText = styled.h1`
-  width: 100%;
-  text-align: center;
-  font-size: 3em;
-`;
-
-const TitleRightCol = styled(Col)`
-  text-align: right;
-  margin: auto 0;
-`;
+import Header from 'components/Header';
 
 const ListWrapper = styled.div`
   margin: 30px;
@@ -50,19 +33,7 @@ export default class HomePage extends React.PureComponent {
   render() {
     return (
       <div>
-        <HeaderContainer>
-          <Container>
-            <Row>
-              <Col />
-              <Col>
-                <TitleText>Moyeora!</TitleText>
-              </Col>
-              <TitleRightCol>
-                <Button color="primary">Register</Button>
-              </TitleRightCol>
-            </Row>
-          </Container>
-        </HeaderContainer>
+        <Header />
         <Jumbotron>
           <h1 className="display-3">Hello, World!</h1>
           <p className="lead">
