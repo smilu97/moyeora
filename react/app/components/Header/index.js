@@ -5,9 +5,12 @@
  */
 
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import history from 'utils/history';
 import styled from 'styled-components';
 import { Container, Row, Col, Button } from 'reactstrap';
+
+import { REGISTER_PAGE_URL } from 'containers/App/constants';
 
 const TitleText = styled.h1`
   width: 100%;
@@ -25,7 +28,7 @@ const HeaderContainer = styled.div`
   padding: 30px 0;
 `;
 
-function Header() {
+function Header(props) {
   return (
     <HeaderContainer>
       <Container>
@@ -35,7 +38,9 @@ function Header() {
             <TitleText>Moyeora!</TitleText>
           </Col>
           <TitleRightCol>
-            <Button color="primary">Register</Button>
+            <Button onClick={() => props.onClickRegister()} color="primary">
+              Register
+            </Button>
           </TitleRightCol>
         </Row>
       </Container>
@@ -43,6 +48,13 @@ function Header() {
   );
 }
 
-Header.propTypes = {};
+Header.propTypes = {
+  onClickRegister: PropTypes.func,
+};
+Header.defaultProps = {
+  onClickRegister: () => {
+    history.push(REGISTER_PAGE_URL);
+  },
+};
 
 export default Header;

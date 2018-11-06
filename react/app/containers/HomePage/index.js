@@ -11,12 +11,14 @@
 
 // import _ from 'lodash';
 import React from 'react';
+import history from 'utils/history';
 // import styled from 'styled-components';
 
 import { Jumbotron, Button } from 'reactstrap';
 
 import Header from 'components/Header';
 import ListSection from './ListSection';
+import { REGISTER_PAGE_URL } from '../App/constants';
 
 function JumboSection() {
   return (
@@ -88,7 +90,7 @@ export default class HomePage extends React.Component {
     const { offers, currentPage } = this.state;
     return (
       <div>
-        <Header />
+        <Header onClickRegister={() => history.push(REGISTER_PAGE_URL)} />
         <JumboSection />
         <ListSection
           offers={offers}
@@ -99,7 +101,7 @@ export default class HomePage extends React.Component {
           onClickPagination={val => this.setState({ currentPage: val })}
         />
         <Jumbotron>
-          <h5>author: smilu97, clarycha</h5>
+          <h5>author: smilu97, clarycha in HYU</h5>
         </Jumbotron>
       </div>
     );
