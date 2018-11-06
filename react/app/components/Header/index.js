@@ -35,7 +35,7 @@ function Header(props) {
         <Row>
           <Col />
           <Col>
-            <TitleText>Moyeora!</TitleText>
+            <TitleText onClick={() => history.push('/')}>Moyeora!</TitleText>
           </Col>
           <TitleRightCol>
             <Button onClick={() => props.onClickRegister()} color="primary">

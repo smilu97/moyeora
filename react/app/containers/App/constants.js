@@ -10,3 +10,4 @@
  */
 
 export const REGISTER_PAGE_URL = '/register';
+export const INTERNET_ERROR_MESSAGE = 'Network status is unstable';

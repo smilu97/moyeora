@@ -18,9 +18,12 @@ const sauce = create({
   },
 });
 
-const api = {
-  sauce,
-  getHome: () => createDummy({ msg: 'Hello, World!' }),
-};
+export function getHome() {
+  return createDummy({ msg: 'Hello, World!' });
+}
 
-export default api;
+export function registerUserGroup() {
+  return createDummy({ msg: 'Registered' });
+}
+
+export default sauce;
