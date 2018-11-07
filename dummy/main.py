@@ -1,8 +1,16 @@
 import json
 import random
-
 from faker import Faker, Factory
 from faker.providers import person
+from sqlalchemy import create_engine
+from sqlalchemy.sql import text
+
+db_engine = create_engine('mysql+pymysql://moyeora:1234@localhost:3306/moyeora')
+conn = db_engine.connect()
+
+with open('basesql.sql', 'r') as fd:
+    for query in fd.read().split(';')[:-1]:
+        conn.execute(text(query))
 
 user_num = 200
 item_num = 50
@@ -58,16 +66,20 @@ random.shuffle(names)
 consumers = names[:int(len(names) * 3 / 4)]
 providers = names[len(consumers):]
 
-with open('person_group.csv', 'w') as fd:
+with open('user_group.csv', 'w') as fd:
     for con in consumers:
         grp = groups[random.randint(0, group_num - 1)]
         fd.write('{},{}\n'.format(con, grp))
+        sql = 'insert into user_group(username, groupname) values (:e1, :e2)'
+        conn.execute(text(sql), e1=con, e2=grp)
 
 with open('offers.csv', 'w') as fd:
     for offer_idx in range(1, offer_num + 1):
         grp = groups[random.randint(0, group_num - 1)]
         itm = items[random.randint(0, item_num - 1)]
         fd.write('{},{},{}\n'.format(offer_idx, grp, itm))
+        sql = 'insert into offers(groupname, itemname) values (:e1, :e2)'
+        conn.execute(text(sql), e1=grp, e2=itm)
 
 with open('requests.csv', 'w') as fd:
     for req_idx in range(1, req_num + 1):
@@ -75,3 +87,7 @@ with open('requests.csv', 'w') as fd:
         provider = random_one(providers)
         cost = random.randint(1, 100) * 10000
         fd.write('{},{},{}\n'.format(offer_idx, provider, cost))
+        sql = 'insert into requests(offerId, requestor, cost) values (:e1, :e2, :e3)'
+        conn.execute(text(sql), e1=offer_idx, e2=provider, e3=cost)
+
+conn.close()
