@@ -58,4 +58,8 @@ export function getOffers(page, pageSize) { // eslint-disable-line
   return createDummy({ offers: DUMMY_OFFERS, offerNum: 30 });
 }
 
+export function getOffer(offerId) {
+  return createDummy({ offer: DUMMY_OFFERS[offerId - 1] });
+}
+
 export default sauce;

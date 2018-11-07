@@ -44,7 +44,7 @@ export class {{ properCase name }} extends React.{{{ component }}} {
 }
 
 {{ properCase name }}.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired, // eslint-disable-line
 };
 
 {{#if wantActionsAndReducer}}
