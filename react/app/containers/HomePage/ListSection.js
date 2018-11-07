@@ -17,9 +17,11 @@ const ListWrapper = styled.div`
 `;
 
 function ListSection(props) {
-  const { offers, currentPage, pageSize, paginationSize } = props;
+  const { offers, currentPage, offerNum, paginationSize } = props;
+  const pageSize = offers.length;
 
-  const paginationMax = Math.floor((offers.length - 1) / pageSize) + 1;
+  const paginationMax =
+    offerNum === 0 ? 1 : Math.floor((offerNum - 1) / pageSize) + 1;
   const paginationBegin =
     Math.floor((currentPage - 1) / paginationSize) * paginationSize + 1;
   const paginationEnd = Math.min(
@@ -27,20 +29,17 @@ function ListSection(props) {
     paginationMax + 1,
   );
 
-  const offerBegin = (currentPage - 1) * pageSize;
-  const offerEnd = offerBegin + pageSize;
-
   return (
     <ListWrapper>
       <h1>Popular offers</h1>
       <ListGroup>
-        {offers.slice(offerBegin, offerEnd).map(offer => (
+        {offers.map(offer => (
           <ListGroupItem
             action
             onClick={() => props.onClickOffer(offer)}
             key={offer.key}
           >
-            {offer.name} <Badge fill>{offer.reqNum}</Badge>
+            {offer.name} <Badge>{offer.reqNum}</Badge>
           </ListGroupItem>
         ))}
       </ListGroup>
@@ -73,13 +72,13 @@ function ListSection(props) {
 ListSection.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.object).isRequired,
   currentPage: PropTypes.number.isRequired,
-  pageSize: PropTypes.number,
+  offerNum: PropTypes.number,
   paginationSize: PropTypes.number,
   onClickOffer: PropTypes.func,
   onClickPagination: PropTypes.func,
 };
 ListSection.defaultProps = {
-  pageSize: 2,
+  offerNum: 0,
   paginationSize: 2,
   onClickOffer: () => null,
   onClickPagination: () => null,

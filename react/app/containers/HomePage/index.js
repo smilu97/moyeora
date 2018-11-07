@@ -11,11 +11,22 @@
 
 // import _ from 'lodash';
 import React from 'react';
+import PropTypes from 'prop-types';
 // import styled from 'styled-components';
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
+import { createStructuredSelector } from 'reselect';
+import connect from 'react-redux/lib/connect/connect';
+import { compose } from 'redux';
+import history from 'utils/history';
 
 import { Jumbotron, Button } from 'reactstrap';
-
 import Header from 'components/Header';
+import makeSelectHomePage from './selectors';
+import { getOffersAttempt } from './actions';
+import reducer from './reducer';
+import saga from './saga';
+
 import ListSection from './ListSection';
 
 function JumboSection() {
@@ -48,44 +59,21 @@ function JumboSection() {
 }
 
 /* eslint-disable react/prefer-stateless-function */
-export default class HomePage extends React.Component {
-  state = {
-    offers: [
-      {
-        key: 1,
-        name: '콘푸로스트-200kg',
-        reqNum: 30,
-      },
-      {
-        key: 2,
-        name: '쌀-1000kg',
-        reqNum: 25,
-      },
-      {
-        key: 3,
-        name: '김치-30000kg',
-        reqNum: 3,
-      },
-      {
-        key: 4,
-        name: '과제대신해주는로봇',
-        reqNum: 65,
-      },
-      {
-        key: 5,
-        name: '호랑이기운',
-        reqNum: 12,
-      },
-    ],
-    currentPage: 1,
-  };
+export class HomePage extends React.Component {
+  componentDidMount() {
+    this.props.getOffers(1, 5);
+  }
 
   handleClickOffer(offer) {
-    alert(`Clicked ${offer.name}`);  // eslint-disable-line
+    history.push(`/offer/${offer.key}`);
+  }
+
+  handleClickPagination(page) {
+    this.props.getOffers(page, 5);
   }
 
   render() {
-    const { offers, currentPage } = this.state;
+    const { offers, currentPage, offerNum } = this.props.homePage;
     return (
       <div>
         <Header />
@@ -93,10 +81,10 @@ export default class HomePage extends React.Component {
         <ListSection
           offers={offers}
           currentPage={currentPage}
-          pageSize={5}
+          offerNum={offerNum}
           paginationSize={5}
           onClickOffer={offer => this.handleClickOffer(offer)}
-          onClickPagination={val => this.setState({ currentPage: val })}
+          onClickPagination={page => this.handleClickPagination(page)}
         />
         <Jumbotron>
           <h5>author: smilu97, clarycha in HYU</h5>
@@ -105,3 +93,32 @@ export default class HomePage extends React.Component {
     );
   }
 }
+
+HomePage.propTypes = {
+  getOffers: PropTypes.func,
+  homePage: PropTypes.object,
+};
+
+const mapStateToProps = createStructuredSelector({
+  homePage: makeSelectHomePage(),
+});
+
+function mapDispatchToProps(dispatch) {
+  return {
+    getOffers: (page, pageSize) => dispatch(getOffersAttempt(page, pageSize)),
+  };
+}
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+const withReducer = injectReducer({ key: 'homePage', reducer });
+const withSaga = injectSaga({ key: 'homePage', saga });
+
+export default compose(
+  withReducer,
+  withSaga,
+  withConnect,
+)(HomePage);
