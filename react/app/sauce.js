@@ -62,4 +62,8 @@ export function getOffer(offerId) {
   return createDummy({ offer: DUMMY_OFFERS[offerId - 1] });
 }
 
+export function postOffer(offer) {
+  return createDummy({ offer });
+}
+
 export default sauce;

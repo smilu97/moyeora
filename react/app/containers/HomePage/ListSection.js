@@ -64,7 +64,9 @@ function ListSection(props) {
           />
         </PaginationItem>
       </Pagination>
-      <Button color="secondary">Offer New</Button>
+      <Button onClick={() => props.onClickOfferNew()} color="secondary">
+        Offer New
+      </Button>
     </ListWrapper>
   );
 }
@@ -76,12 +78,14 @@ ListSection.propTypes = {
   paginationSize: PropTypes.number,
   onClickOffer: PropTypes.func,
   onClickPagination: PropTypes.func,
+  onClickOfferNew: PropTypes.func,
 };
 ListSection.defaultProps = {
   offerNum: 0,
   paginationSize: 2,
   onClickOffer: () => null,
   onClickPagination: () => null,
+  onClickOfferNew: () => null,
 };
 
 export default ListSection;

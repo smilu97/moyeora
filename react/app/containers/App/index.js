@@ -13,11 +13,16 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
 import RegisterPage from 'containers/RegisterPage/Loadable';
 import OfferPage from 'containers/OfferPage/Loadable';
+import OfferNewPage from 'containers/OfferNewPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import GlobalStyle from '../../global-styles';
 
-import { REGISTER_PAGE_URL, OFFER_PAGE_URL } from './constants';
+import {
+  REGISTER_PAGE_URL,
+  OFFER_PAGE_URL,
+  OFFER_NEW_PAGE_URL,
+} from './constants';
 
 export default function App() {
   return (
@@ -26,6 +31,7 @@ export default function App() {
         <Route exact path="/" component={HomePage} />
         <Route path={REGISTER_PAGE_URL} component={RegisterPage} />
         <Route path={OFFER_PAGE_URL} component={OfferPage} />
+        <Route path={OFFER_NEW_PAGE_URL} component={OfferNewPage} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />

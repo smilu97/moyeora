@@ -11,4 +11,5 @@
 
 export const REGISTER_PAGE_URL = '/register';
 export const OFFER_PAGE_URL = '/offer/:offerId';
+export const OFFER_NEW_PAGE_URL = '/offernew';
 export const INTERNET_ERROR_MESSAGE = 'Network status is unstable';

@@ -85,6 +85,7 @@ export class HomePage extends React.Component {
           paginationSize={5}
           onClickOffer={offer => this.handleClickOffer(offer)}
           onClickPagination={page => this.handleClickPagination(page)}
+          onClickOfferNew={() => history.push('/offernew')}
         />
         <Jumbotron>
           <h5>author: smilu97, clarycha in HYU</h5>
