@@ -23,6 +23,8 @@ import reducer from './reducer';
 import saga from './saga';
 import { getOfferAttempt } from './actions';
 
+import RequestForm from './RequestForm';
+
 const OfferContainer = styled.div`
   background-color: white;
   border: 1px solid #ccc;
@@ -39,6 +41,11 @@ const RequestsContainer = styled.div`
 
 /* eslint-disable react/prefer-stateless-function */
 export class OfferPage extends React.Component {
+  state = {
+    requestName: '',
+    requestCost: 0,
+  };
+
   componentDidMount() {
     const { offerId } = this.props.match.params;
     this.props.getOffer(offerId);
@@ -46,7 +53,7 @@ export class OfferPage extends React.Component {
 
   render() {
     const { offer, atGetOffer } = this.props.offerPage;
-
+    const { requestName, requestCost } = this.state;
     const offerName = atGetOffer || offer === null ? 'Loading' : offer.name;
 
     return (
@@ -60,10 +67,19 @@ export class OfferPage extends React.Component {
           <h1 className="display-3">{offerName}</h1>
           <h3>제안그룹: 사근동제일큰그룹</h3>
         </OfferContainer>
+        <RequestForm
+          name={requestName}
+          cost={requestCost}
+          onChangeName={e => this.setState({ requestName: e.target.value })}
+          onChangeCost={e => this.setState({ requestCost: e.target.value })}
+          onClickRequest={() => null}
+        />
         <RequestsContainer>
           <ListGroup>
             {_.range(0, 20).map(idx => (
-              <ListGroupItem key={idx}>100000원: 콘푸로스트사장</ListGroupItem>
+              <ListGroupItem key={idx}>
+                <h3>100000원</h3>
+              </ListGroupItem>
             ))}
           </ListGroup>
         </RequestsContainer>
