@@ -5,7 +5,7 @@ from faker.providers import person
 from sqlalchemy import create_engine
 from sqlalchemy.sql import text
 
-db_engine = create_engine('mysql+pymysql://moyeora:1234@localhost:3306/moyeora')
+db_engine = create_engine('mysql+pymysql://moyeora:moyeora12341234@localhost:3306/moyeora')
 conn = db_engine.connect()
 
 with open('basesql.sql', 'r') as fd:
