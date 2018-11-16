@@ -162,6 +162,6 @@ app.get('/offer/:offerNum/requests', async (req, res) => {
     res.json({success: 1, requests});
 })
 
-app.listen(3000, () => {
+app.listen(3001, () => {
     console.log('Server application successfully initiated on port 3000');
 });
