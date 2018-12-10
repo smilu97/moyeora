@@ -5,6 +5,8 @@ author: clarycha, smilu97
 
 Software studio2 in HYU handout project
 
+hosted on: http://moyeora.smilu.cc
+
 ## 개요
 
 본 프로젝트는 대부분 Javascript 언어를 이용하고 있으며 NodeJS 기반의,
