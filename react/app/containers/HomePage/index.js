@@ -65,7 +65,7 @@ export class HomePage extends React.Component {
   }
 
   handleClickOffer(offer) {
-    history.push(`/offer/${offer.key}`);
+    history.push(`/offer/${offer.id}`);
   }
 
   handleClickPagination(page) {

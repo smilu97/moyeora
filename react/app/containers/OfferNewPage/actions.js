@@ -18,10 +18,11 @@ export function defaultAction() {
   };
 }
 
-export function postOfferAttempt(offer) {
+export function postOfferAttempt(username, itemname) {
   return {
     type: POST_OFFER_ATTEMPT,
-    offer,
+    username,
+    itemname,
   };
 }
 export function postOfferSuccess(offer) {

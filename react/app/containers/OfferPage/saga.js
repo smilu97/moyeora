@@ -8,6 +8,15 @@ export function* getOfferSaga({ offerId }) {
   const { ok, data } = yield call(getOffer, offerId);
   if (ok) {
     if (data.success) {
+      data.offer.requests.sort((a, b) => {
+        if (a.cost > b.cost) {
+          return 1;
+        }
+        if (a.cost === b.cost) {
+          return 0;
+        }
+        return -1;
+      });
       yield put(getOfferSuccess(data.offer));
     } else {
       yield put(getOfferFailure(data.error));

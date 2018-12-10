@@ -4,8 +4,8 @@ import { POST_OFFER_ATTEMPT } from './constants';
 import { INTERNET_ERROR_MESSAGE } from '../App/constants';
 import { postOfferSuccess, postOfferFailure } from './actions';
 
-export function* postOfferSaga({ offer }) {
-  const { ok, data } = yield call(postOffer, offer);
+export function* postOfferSaga({ username, itemname }) {
+  const { ok, data } = yield call(postOffer, username, itemname);
   if (ok) {
     if (data.success) {
       yield put(postOfferSuccess(data.offer));

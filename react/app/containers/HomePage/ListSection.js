@@ -12,6 +12,10 @@ import {
   PaginationItem,
 } from 'reactstrap';
 
+const OfferBadge = styled(Badge)`
+  margin-left: 10px;
+`;
+
 const ListWrapper = styled.div`
   margin: 30px;
 `;
@@ -29,17 +33,20 @@ function ListSection(props) {
     paginationMax + 1,
   );
 
+  console.log(offers);
+
   return (
     <ListWrapper>
-      <h1>Popular offers</h1>
+      <h1>Recent offers</h1>
       <ListGroup>
         {offers.map(offer => (
           <ListGroupItem
             action
             onClick={() => props.onClickOffer(offer)}
-            key={offer.key}
+            key={offer.id}
           >
-            {offer.name} <Badge>{offer.reqNum}</Badge>
+            {offer.itemname}
+            <OfferBadge>{offer.requests.length}</OfferBadge>
           </ListGroupItem>
         ))}
       </ListGroup>

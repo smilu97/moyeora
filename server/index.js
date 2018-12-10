@@ -1,10 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const Sequelize = require('sequelize');
-
-const asdf = 3;
-
-
+const cors = require('cors');
 
 const sequelize = new Sequelize(
     'moyeora', // database
@@ -34,6 +31,8 @@ const offerTable = sequelize.define('offer', {
         type: Sequelize.STRING,
         allowNull: false,
     },
+}, {
+    timestamps: false,
 });
 
 const userGroupTable = sequelize.define('user_group', {
@@ -51,6 +50,8 @@ const userGroupTable = sequelize.define('user_group', {
         type: Sequelize.STRING,
         allowNull: false,
     },
+}, {
+    timestamps: false,
 });
 
 const requestTable = sequelize.define('request', {
@@ -72,11 +73,18 @@ const requestTable = sequelize.define('request', {
         type: Sequelize.INTEGER,
         allowNull: false,
     },
+}, {
+    timestamps: false,
 });
+
+offerTable.hasMany(requestTable, { foreignKey: 'offerId' });
+
+// sequelize.sync({ force: true });
 
 app = express();
 
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get('/', (req, res) => {
     res.json({
@@ -115,11 +123,26 @@ app.get('/offers/:pageNum', async (req, res) => {
     const pageNum = req.params.pageNum;
     const offset = (pageNum - 1) * 5;
     const offers = await offerTable.findAll({
-        order: [['createdAt', 'DESC']],
+        include: [{ model: requestTable, as: 'requests' }],
         offset,
         limit: 5,
     });
-    res.json({ success: 1, offers });
+    const offerNum = await offerTable.count();
+    res.json({ success: 1, offers, offerNum });
+})
+
+app.get('/offer/:offerId', async (req, res) => {
+    const { offerId } = req.params;
+    const offer = await offerTable.findOne({
+        where: {
+            id: offerId,
+        },
+        include: [{ model: requestTable, as: 'requests' }],
+    });
+    if (offer === null) {
+        return res.json({ success: 0, msg: 'Offer not found' });
+    }
+    res.json({ success: 1, offer });
 })
 
 app.post('/offer', async (req, res) => {

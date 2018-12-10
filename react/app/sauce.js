@@ -1,33 +1,5 @@
 import { create } from 'apisauce';
 
-const DUMMY_OFFERS = [
-  {
-    key: 1,
-    name: '콘푸로스트-200kg',
-    reqNum: 30,
-  },
-  {
-    key: 2,
-    name: '쌀-1000kg',
-    reqNum: 25,
-  },
-  {
-    key: 3,
-    name: '김치-30000kg',
-    reqNum: 3,
-  },
-  {
-    key: 4,
-    name: '과제대신해주는로봇',
-    reqNum: 65,
-  },
-  {
-    key: 5,
-    name: '호랑이기운',
-    reqNum: 12,
-  },
-];
-
 async function createDummy(data) {
   return {
     ok: true,
@@ -40,7 +12,7 @@ async function createDummy(data) {
 }
 
 const sauce = create({
-  baseURL: 'http://localhost:8080/',
+  baseURL: 'http://localhost:3001/',
   headers: {
     Accept: 'application/json',
   },
@@ -50,20 +22,28 @@ export function getHome() {
   return createDummy({ msg: 'Hello, World!' });
 }
 
-export function registerUserGroup() {
-  return createDummy({ msg: 'Registered' });
+export function registerUserGroup(username, groupname) {
+  return sauce.post('/register/usergroup', { username, groupname });
 }
 
 export function getOffers(page, pageSize) { // eslint-disable-line
-  return createDummy({ offers: DUMMY_OFFERS, offerNum: 30 });
+  return sauce.get(`/offers/${page}`);
 }
 
 export function getOffer(offerId) {
-  return createDummy({ offer: DUMMY_OFFERS[offerId - 1] });
+  return sauce.get(`/offer/${offerId}`);
 }
 
-export function postOffer(offer) {
-  return createDummy({ offer });
+export function postOffer(username, itemname) {
+  return sauce.post('/offer', { username, itemname });
+}
+
+export function postRequest(username, cost) {
+  return sauce.post('/offer/:offerId/request', { username, cost });
+}
+
+export function getRequests(offerId) {
+  return sauce.get(`/offer/${offerId}/requests`);
 }
 
 export default sauce;

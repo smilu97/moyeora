@@ -47,8 +47,9 @@ export class OfferNewPage extends React.Component {
     item: '',
   };
 
-  handleClickPost(offer) {
-    this.props.postOffer(offer);
+  handleClickPost() {
+    const { username, item } = this.state;
+    this.props.postOffer(username, item);
   }
 
   render() {
@@ -95,7 +96,8 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     closeAlertMessage: () => dispatch(closeAlertMessage()),
-    postOffer: offer => dispatch(postOfferAttempt(offer)),
+    postOffer: (username, itemname) =>
+      dispatch(postOfferAttempt(username, itemname)),
   };
 }
 
