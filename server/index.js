@@ -4,9 +4,9 @@ const Sequelize = require('sequelize');
 const cors = require('cors');
 
 const sequelize = new Sequelize(
-    'moyeora', // database
-    'moyeora', // username
-    'moyeora12341234', // password
+    process.env.MOY_DB || 'moyeora', // database
+    process.env.MOY_USERNAME || 'moyeora', // username
+    process.env.MOY_PASSWORD || 'moyeora12341234', // password
     {
         host: 'localhost', // url
         dialect: 'mysql', // database type
