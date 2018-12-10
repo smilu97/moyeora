@@ -5,12 +5,32 @@ author: clarycha, smilu97
 
 Software studio2 in HYU handout project
 
-hosted on: http://54.180.137.238:3000/
+hosted on: http://54.180.137.238/
 docker packaged: smilu2244/moyeora:latest
 
 ```sh
 docker pull smilu2244/moyeora:latest
 ```
+
+##### ETC
+
+###### 사용하지 않았던 apache2, tomcat에 대하여
+
+apache2는 포트간, 소켓파일간의 포워딩이나 HTTP통신시에 일어나는 압축, 암호화 등의 전처리 등을
+도와주는 서버 어플리케이션이다.
+
+이것을 이용해 실제 API 어플리케이션은 3000번 포트로 연결을 listening하고 있거나, 로컬의 특정
+socket stream 파일을 통해 listening하고 있는 경우에, 실제 외부의 80번 포트와 이것들을
+연결시켜 주어 외부에서 보았을 때 일반 서비스 포트에서 동작하는 것 처럼 보이게 할 수 있다.
+
+tomcat의 경우 기본적으로 서블렛 기능을 가지고 있는 서버이며, 컴파일된 자바 바이너리 파일의 경우
+실행된 결과값을 응답으로써 사용할 수 있도록 하는 것이 특징이다.
+
+###### Small contribution
+
+https://github.com/tensorflow/tensorflow/pull/24195
+
+텐서플로우 라이브러리의 문서에 약간의 설명 추가를 기여해보려고 하는 중입니다.
 
 ## 개요
 
@@ -72,4 +92,3 @@ npm start
 
 여러 Database들과의 Connection을 관리해주고 Table의 Entity를 캐싱해주거나, 
 SQL을 자동으로 생성해주는 ORM 라이브러리 입니다.
-
