@@ -6,6 +6,7 @@ author: clarycha, smilu97
 Software studio2 in HYU handout project
 
 hosted on: http://moyeora.smilu.cc
+docker packaged: smilu2244/moyeora:latest
 
 ## 개요
 
