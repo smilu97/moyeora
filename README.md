@@ -5,8 +5,12 @@ author: clarycha, smilu97
 
 Software studio2 in HYU handout project
 
-hosted on: http://moyeora.smilu.cc
+hosted on: http://54.180.137.238:3000/
 docker packaged: smilu2244/moyeora:latest
+
+```sh
+docker pull smilu2244/moyeora:latest
+```
 
 ## 개요
 
